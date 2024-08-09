@@ -1,6 +1,17 @@
 {% extends 'base.html' %} {% block 'content' %}
 <section>
-  <h1>Estoy mostrando informacion</h1>
+  <h1>Nuestros productos</h1>
   <h2>{{messege}}</h2>
+  <div class="card-container">
+    {% for p in produtos %}
+    <div class="card" style="width: 18rem">
+      <img src="{{p.image_url}}" class="card-img-top" alt="{{p.name}}" />
+      <div class="card-body">
+        <h5 class="card-title">{{p.name}}</h5>
+        <a href="#" class="btn btn-primary">Ver mas informacion</a>
+      </div>
+    </div>
+    {%endfor%}
+  </div>
 </section>
 {% endblock %}

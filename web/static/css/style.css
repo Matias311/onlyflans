@@ -23,6 +23,43 @@ section {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 1rem;
+}
+
+/* Estilos para las cards del inicio */
+.card-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.card {
+  height: 22rem;
+}
+
+.card img {
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  object-position: center;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-body h5 {
+  font-size: 1.1rem;
+  text-align: center;
+  padding-bottom: 0.5rem;
+}
+
+.card-body a {
+  font-size: 0.8rem;
+  text-align: center;
 }
 
 footer {
