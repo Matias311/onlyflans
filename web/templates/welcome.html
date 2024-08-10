@@ -1,6 +1,32 @@
 {% extends 'base.html' %} {% block 'content' %}
 <section>
-  <h1>Bienvenido a nuestra tienda....{{usuario.nombre}}</h1>
+  <h1>Bienvenido {{usuario.nombre}}</h1>
+  {% if flanes_privados %}
   <p>Tenemos las siguientes ofertas disponibles para ti</p>
+  <div class="card-container">
+      {% for p in flanes_privados %}
+      <div class="card" style="width: 18rem">
+        <img src="{{p.image_url}}" class="card-img-top" alt="{{p.name}}" />
+        <div class="card-body">
+          <h5 class="card-title">{{p.name}}</h5>
+          <a href="#" class="btn btn-primary">Ver mas informacion</a>
+        </div>
+      </div>
+      {%endfor%}
+    </div>
+    {% endif %}
+  <p>Por si te interesa</p>
+    <div class="card-container">
+      {% for p in flanes_publicos %}
+      <div class="card" style="width: 18rem">
+        <img src="{{p.image_url}}" class="card-img-top" alt="{{p.name}}" />
+        <div class="card-body">
+          <h5 class="card-title">{{p.name}}</h5>
+          <a href="#" class="btn btn-primary">Ver mas informacion</a>
+        </div>
+      </div>
+      {%endfor%}
+    </div>
+  </div>
 </section>
 {% endblock %}
