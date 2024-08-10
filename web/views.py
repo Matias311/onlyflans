@@ -1,20 +1,14 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-import json
+from .models import Flan
 
 # Create your views here.
-
-
-def cargar_json():
-    with open('web/utils/flans.json', 'r') as file:
-        data = json.load(file)
-    return data
 
 
 def home(req):
     """Muestra el index.html de templates"""
     context: dict = {
-        'produtos': cargar_json(),
+        'flanes_publicos': Flan.objects.filter(is_private=False),
         'usuario': {"nombre": "Matias", "is_active": True}
     }
     return render(req, 'index.html', context)
@@ -32,6 +26,8 @@ def about(req):
 def welcome(req):
     """Nos muestra la bienvenida a la tienda"""
     context: dict = {
-        'usuario': {"nombre": "Matias", "is_active": True}
+        'usuario': {"nombre": "Matias", "is_active": True},
+        'flanes_publicos': Flan.objects.filter(is_private=False),
+        'flanes_privados': Flan.objects.filter(is_private=True)
     }
     return render(req, 'welcome.html', context)

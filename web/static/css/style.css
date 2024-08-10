@@ -29,7 +29,7 @@ section {
 /* Estilos para las cards del inicio */
 .card-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
   gap: 1rem;
