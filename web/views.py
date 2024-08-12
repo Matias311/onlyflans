@@ -34,7 +34,10 @@ def welcome(req):
 
 
 def exito(req):
-    return render(req, 'exito.html', {})
+    context = {
+        'usuario': {"nombre": "Matias", "is_active": True},
+    }
+    return render(req, 'exito.html', context)
 
 
 def contacto(req):
@@ -45,4 +48,9 @@ def contacto(req):
             return HttpResponseRedirect('/exito')
     else:
         form = ContactFormForm()
-    return render(req, 'contacto.html', {'form': form})
+
+    context = {
+        'usuario': {"nombre": "Matias", "is_active": True},
+        'form': form
+    }
+    return render(req, 'contacto.html', context)
