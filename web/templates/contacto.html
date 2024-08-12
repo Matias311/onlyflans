@@ -1,3 +1,50 @@
 {% extends 'base.html' %} {% block 'content'%}
 
+<form action="/contacto" method="post">
+  {% csrf_token %}
+
+  <div class="mb-3">
+    <label for="customerEmail" class="form-label">
+      {{ form.customer_email.label_tag }}
+    </label>
+    <input
+      type="email"
+      name="customer_email"
+      class="form-control {% if form.customer_email.errors %}is-invalid{% elif form.customer_email.value %}is-valid{% endif %}"
+      id="customerEmail"
+      aria-describedby="emailHelp"
+    />
+    <div class="invalid-feedback">{{ form.customer_email.errors }}</div>
+    <div class="valid-feedback">¡Correo electrónico válido!</div>
+  </div>
+
+  <div class="mb-3">
+    <label for="customerName" class="form-label">
+      {{ form.customer_name.label_tag }}
+    </label>
+    <input
+      type="text"
+      name="customer_name"
+      class="form-control {% if form.customer_name.errors %}is-invalid{% elif form.customer_name.value %}is-valid{% endif %}"
+      id="customerName"
+    />
+    <div class="invalid-feedback">{{ form.customer_name.errors }}</div>
+    <div class="valid-feedback">¡Nombre válido!</div>
+  </div>
+
+  <div class="form-floating mb-3">
+    <textarea
+      name="message"
+      class="form-control {% if form.message.errors %}is-invalid{% elif form.message.value %}is-valid{% endif %}"
+      placeholder="Deja tu mensaje"
+      id="floatingTextarea2"
+      style="height: 100px"
+    ></textarea>
+    <label for="floatingTextarea2">{{ form.message.label_tag }}</label>
+    <div class="invalid-feedback">{{ form.message.errors }}</div>
+    <div class="valid-feedback">¡Mensaje válido!</div>
+  </div>
+
+  <button type="submit" class="btn btn-primary formulario-btn">Enviar</button>
+</form>
 {% endblock %}
