@@ -1,7 +1,3 @@
 {% extends 'base.html' %} {% block 'content'%}
-<form action="/contacto" method="post">
-  {% csrf_token %}
-  {{form}}
-  <button type="submit" class="btn btn-primary">Enviar</button>
-</form>
+
 {% endblock %}

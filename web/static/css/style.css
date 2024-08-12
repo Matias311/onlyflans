@@ -62,6 +62,10 @@ section {
   text-align: center;
 }
 
+.formulario-btn {
+  margin-top: 1rem;
+}
+
 footer {
   text-align: center;
   padding: 10px;
