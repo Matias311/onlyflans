@@ -1,0 +1,49 @@
+{% extends 'base.html' %} {% block 'content'%} {% if form.errors %}
+<div class="alert alert-danger" role="alert">
+  Your username and password didn't match. Please try again.
+</div>
+{% endif %} {% if next %} {% if user.is_authenticated %}
+<div class="alert alert-warning" role="alert">
+  Your account doesn't have access to this page. To proceed, please login with
+  an account that has access.
+</div>
+{% else %}
+<div class="alert alert-info" role="alert">Please login to see this page.</div>
+{% endif %} {% endif %}
+
+<section>
+  <form
+    method="post"
+    action="{% url 'login' %}"
+    class="needs-validation form-login"
+    novalidate
+  >
+    {% csrf_token %}
+    <div class="mb-3 label-form-login">
+      <label for="id_username" class="form-label"
+        >{{ form.username.label }}</label
+      >
+      {{ form.username }} {% if form.username.errors %}
+      <div class="invalid-feedback">
+        {% for error in form.username.errors %} {{ error }} {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="mb-3 label-form-login">
+      <label for="id_password" class="form-label"
+        >{{ form.password.label }}</label
+      >
+      {{ form.password }} {% if form.password.errors %}
+      <div class="invalid-feedback">
+        {% for error in form.password.errors %} {{ error }} {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+
+    <input type="hidden" name="next" value="{{ next }}" />
+    <button type="submit" class="btn btn-primary">Login</button>
+  </form>
+</section>
+
+{% endblock %}

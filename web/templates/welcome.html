@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% block 'content' %}
 <section>
-  <h1>Bienvenido {{usuario.nombre}}</h1>
+  <h1>Bienvenido {{user.get_username.upper}}</h1>
   {% if flanes_privados %}
   <p>Tenemos las siguientes ofertas disponibles para ti</p>
   <div class="card-container">
