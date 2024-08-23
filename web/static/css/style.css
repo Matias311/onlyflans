@@ -66,6 +66,20 @@ section {
   margin-top: 1rem;
 }
 
+/* Estilos de inicio de sesion */
+.form-login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-login .label-form-login {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
 footer {
   text-align: center;
   padding: 10px;

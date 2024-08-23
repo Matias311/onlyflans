@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Flan, ContactForm
@@ -9,7 +10,6 @@ def home(req):
     """Muestra el index.html de templates"""
     context: dict = {
         'flanes_publicos': Flan.objects.filter(is_private=False),
-        'usuario': {"nombre": "Matias", "is_active": True}
     }
     return render(req, 'index.html', context)
 
@@ -18,15 +18,14 @@ def about(req):
     """Nos muestra la informacion de sobre la pagina"""
     context: dict = {
         "messege": "Nuestra empresa ....",
-        'usuario': {"nombre": "Matias", "is_active": True}
     }
     return render(req, 'about.html', context)
 
 
+@login_required
 def welcome(req):
     """Nos muestra la bienvenida a la tienda"""
     context: dict = {
-        'usuario': {"nombre": "Matias", "is_active": True},
         'flanes_publicos': Flan.objects.filter(is_private=False),
         'flanes_privados': Flan.objects.filter(is_private=True)
     }
@@ -34,9 +33,7 @@ def welcome(req):
 
 
 def exito(req):
-    context = {
-        'usuario': {"nombre": "Matias", "is_active": True},
-    }
+    context = {}
     return render(req, 'exito.html', context)
 
 
@@ -50,7 +47,6 @@ def contacto(req):
         form = ContactFormForm()
 
     context = {
-        'usuario': {"nombre": "Matias", "is_active": True},
         'form': form
     }
     return render(req, 'contacto.html', context)
