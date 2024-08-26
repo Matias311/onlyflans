@@ -11,6 +11,7 @@ class Flan(models.Model):
     image_url = models.URLField()
     slug = models.SlugField()
     is_private = models.BooleanField()
+    price = models.IntegerField(default=0)
 
 
 class ContactForm(models.Model):

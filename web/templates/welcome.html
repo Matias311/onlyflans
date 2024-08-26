@@ -9,7 +9,11 @@
         <img src="{{p.image_url}}" class="card-img-top" alt="{{p.name}}" />
         <div class="card-body">
           <h5 class="card-title">{{p.name}}</h5>
-          <a href="#" class="btn btn-primary">Ver mas informacion</a>
+          <a
+          href="{% url 'detalle_privado' flan_uuid=p.flan_uuid %}"
+          class="btn btn-primary"
+          >Ver mas informacion</a
+        >
         </div>
       </div>
       {%endfor%}
@@ -22,7 +26,11 @@
         <img src="{{p.image_url}}" class="card-img-top" alt="{{p.name}}" />
         <div class="card-body">
           <h5 class="card-title">{{p.name}}</h5>
-          <a href="#" class="btn btn-primary">Ver mas informacion</a>
+          <a
+          href="{% url 'detail_flan' flan_uuid=p.flan_uuid %}"
+          class="btn btn-primary"
+          >Ver mas informacion</a
+        >
         </div>
       </div>
       {%endfor%}
