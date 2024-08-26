@@ -7,5 +7,8 @@ urlpatterns = [
     path('about', views.about),
     path('welcome', views.welcome),
     path('contacto', views.contacto),
-    path('exito', views.exito)
+    path('exito', views.exito),
+    path('detalle/<uuid:flan_uuid>', views.detalle_flan, name='detail_flan'),
+    path('detalle_privados/<uuid:flan_uuid>',
+         views.detalle_flan_privado, name='detalle_privado')
 ]

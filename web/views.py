@@ -50,3 +50,15 @@ def contacto(req):
         'form': form
     }
     return render(req, 'contacto.html', context)
+
+
+def detalle_flan(req, flan_uuid):
+    flan = Flan.objects.get(flan_uuid=flan_uuid)
+    if flan.is_private == False:
+        return render(req, 'description-flan.html', {"flan": flan})
+
+
+@login_required
+def detalle_flan_privado(req, flan_uuid):
+    flan = Flan.objects.get(flan_uuid=flan_uuid)
+    return render(req, 'description-flan.html', {"flan": flan})
