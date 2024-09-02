@@ -1,8 +1,8 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Flan, ContactForm
-from .forms import ContactFormForm
+from .models import Flan, ContactForm, Profile
+from .forms import ContactFormForm, UserForm, ProfileFrom
 # Create your views here.
 
 
@@ -62,3 +62,29 @@ def detalle_flan(req, flan_uuid):
 def detalle_flan_privado(req, flan_uuid):
     flan = Flan.objects.get(flan_uuid=flan_uuid)
     return render(req, 'description-flan.html', {"flan": flan})
+
+
+@login_required
+def profile_view(req):
+    user_id = req.user.id
+
+    user = req.user
+    if not hasattr(user, 'profile'):
+        Profile.objects.create(user=user)
+        profile = Profile.objects.get(user_id=user_id)
+        print(f'user profile get -> {profile.__dict__}')
+
+    if req.method == 'POST':
+        user_form = UserForm(req.POST, instance=req.user)
+        profile_form = ProfileFrom(req.POST, instance=req.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return redirect('/welcome')
+    else:
+        user_form = UserForm(instance=req.user)
+        profile_form = ProfileFrom(instance=req.user.profile)
+    return render(req, 'profile.html', {
+        'user_form': user_form,
+        'profile_form': profile_form
+    })

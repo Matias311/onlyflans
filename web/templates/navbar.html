@@ -29,6 +29,7 @@
         </li>
       </ul>
       {% if user.is_authenticated %}
+      <a href="profile/" class="btn btn-outline-success">Perfil</a>
       <form
         id="logout-form"
         action="{% url 'logout' %}"
