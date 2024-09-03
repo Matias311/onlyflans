@@ -2,7 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Flan, ContactForm, Profile
-from .forms import ContactFormForm, UserForm, ProfileFrom
+from .forms import ContactFormForm, UserForm, ProfileFrom, CustomUserCreationForm
+from django.contrib.auth import login
 # Create your views here.
 
 
@@ -88,3 +89,15 @@ def profile_view(req):
         'user_form': user_form,
         'profile_form': profile_form
     })
+
+
+def register(req):
+    if req.method == 'POST':
+        form = CustomUserCreationForm(req.POST)
+        if form.is_valid():
+            user = form.save()
+            login(req, user)
+            return redirect('profile')
+    else:
+        form = CustomUserCreationForm()
+    return render(req, 'register.html', {'form': form})
