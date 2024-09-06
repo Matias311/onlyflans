@@ -1,39 +1,61 @@
 {% extends 'base.html' %} {% block 'content' %}
-<section>
-  <h1>Bienvenido {{user.get_username.upper}}</h1>
-  {% if flanes_privados %}
-  <p>Tenemos las siguientes ofertas disponibles para ti</p>
-  <div class="card-container">
+<section class="container mt-5">
+  <h1 class="text-center">Bienvenido {{ user.get_username|upper }}</h1>
+
+  {% if user.id == 1 %}
+  <div class="text-center mb-4">
+    <h3>¿Quieres agregar un nuevo flan?</h3>
+    <a href="{% url 'agregar' %}" class="btn btn-primary">Click aquí</a>
+  </div>
+  {% endif %} {% if flanes_privados %}
+  <div class="mb-5">
+    <p class="lead">Tenemos las siguientes ofertas disponibles para ti:</p>
+    <div class="row">
       {% for p in flanes_privados %}
-      <div class="card" style="width: 18rem">
-        <img src="{{p.image_url}}" class="card-img-top" alt="{{p.name}}" />
-        <div class="card-body">
-          <h5 class="card-title">{{p.name}}</h5>
-          <a
-          href="{% url 'detalle_privado' flan_uuid=p.flan_uuid %}"
-          class="btn btn-primary"
-          >Ver mas informacion</a
-        >
+      <div class="col-md-4 mb-4">
+        <div class="card" style="width: 100%">
+          <img
+            src="{{ p.image_url }}"
+            class="card-img-top"
+            alt="{{ p.name }}"
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{ p.name }}</h5>
+            <a
+              href="{% url 'detalle_privado' flan_uuid=p.flan_uuid %}"
+              class="btn btn-primary"
+              >Ver más información</a
+            >
+          </div>
         </div>
       </div>
-      {%endfor%}
+      {% endfor %}
     </div>
-    {% endif %}
-  <p>Por si te interesa</p>
-    <div class="card-container">
+  </div>
+  {% endif %}
+
+  <div>
+    <p class="lead">Por si te interesa:</p>
+    <div class="row">
       {% for p in flanes_publicos %}
-      <div class="card" style="width: 18rem">
-        <img src="{{p.image_url}}" class="card-img-top" alt="{{p.name}}" />
-        <div class="card-body">
-          <h5 class="card-title">{{p.name}}</h5>
-          <a
-          href="{% url 'detail_flan' flan_uuid=p.flan_uuid %}"
-          class="btn btn-primary"
-          >Ver mas informacion</a
-        >
+      <div class="col-md-4 mb-4">
+        <div class="card" style="width: 100%">
+          <img
+            src="{{ p.image_url }}"
+            class="card-img-top"
+            alt="{{ p.name }}"
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{ p.name }}</h5>
+            <a
+              href="{% url 'detail_flan' flan_uuid=p.flan_uuid %}"
+              class="btn btn-primary"
+              >Ver más información</a
+            >
+          </div>
         </div>
       </div>
-      {%endfor%}
+      {% endfor %}
     </div>
   </div>
 </section>

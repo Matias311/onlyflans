@@ -1,5 +1,5 @@
 from django import forms
-from .models import ContactForm, Profile
+from .models import ContactForm, Profile, Flan
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
@@ -36,3 +36,18 @@ class CustomUserCreationForm(UserCreationForm):
             raise forms.ValidationError(
                 'Este correo electronico ya esta en uso')
         return email
+
+
+class AgregarFlan(forms.ModelForm):
+    class Meta:
+        model = Flan
+        fields = ['name', 'description', 'image_url',
+                  'slug', 'is_private', 'price']
+        labels = {
+            'name': 'Nombre',
+            'description': 'Descripcion',
+            'image_url': 'URL de la imagen',
+            'slug': 'Apodo del producto',
+            'is_private': 'Es solo para usuarios registrados',
+            'price': 'Precio'
+        }

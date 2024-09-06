@@ -1,0 +1,107 @@
+{% extends 'base.html' %} {% block 'content' %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h1 class="text-center mb-4">Agregar Nuevo Flan</h1>
+      <form
+        method="post"
+        class="border p-4 bg-light rounded"
+        enctype="multipart/form-data"
+      >
+        {% csrf_token %}
+
+        <!-- Campo Nombre -->
+        <div class="form-group mb-3">
+          <label for="id_name" class="form-label"
+            >{{ form.name.label_tag }}</label
+          >
+          <input
+            type="text"
+            name="name"
+            id="id_name"
+            class="form-control"
+            value="{{ form.name.value|default_if_none:'' }}"
+          />
+        </div>
+
+        <!-- Campo Descripción -->
+        <div class="form-group mb-3">
+          <label for="id_description" class="form-label"
+            >{{ form.description.label_tag }}</label
+          >
+          <textarea name="description" id="id_description" class="form-control">
+{{ form.description.value|default_if_none:'' }}</textarea
+          >
+        </div>
+
+        <!-- Campo URL de la Imagen -->
+        <div class="form-group mb-3">
+          <label for="id_image_url" class="form-label"
+            >{{ form.image_url.label_tag }}</label
+          >
+          <input
+            type="url"
+            name="image_url"
+            id="id_image_url"
+            class="form-control"
+            value="{{ form.image_url.value|default_if_none:'' }}"
+          />
+        </div>
+
+        <!-- Campo Slug -->
+        <div class="form-group mb-3">
+          <label for="id_slug" class="form-label"
+            >{{ form.slug.label_tag }}</label
+          >
+          <input
+            type="text"
+            name="slug"
+            id="id_slug"
+            class="form-control"
+            value="{{ form.slug.value|default_if_none:'' }}"
+          />
+        </div>
+
+        <!-- Campo Es Privado (Checkbox) -->
+        <div class="form-group form-check mb-3">
+          <input
+            type="checkbox"
+            name="is_private"
+            id="id_is_private"
+            class="form-check-input"
+            {%
+            if
+            form.is_private.value
+            %}checked{%
+            endif
+            %}
+          />
+          <label for="id_is_private" class="form-check-label"
+            >{{ form.is_private.label_tag }}</label
+          >
+        </div>
+
+        <!-- Campo Precio -->
+        <div class="form-group mb-3">
+          <label for="id_price" class="form-label"
+            >{{ form.price.label_tag }}</label
+          >
+          <input
+            type="number"
+            name="price"
+            id="id_price"
+            class="form-control"
+            value="{{ form.price.value|default_if_none:'' }}"
+            step="0.01"
+          />
+        </div>
+
+        <!-- Botón de envío -->
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary">Agregar Flan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
