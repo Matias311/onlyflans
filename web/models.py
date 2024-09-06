@@ -10,7 +10,7 @@ class Flan(models.Model):
     description = models.TextField()
     image_url = models.URLField()
     slug = models.SlugField()
-    is_private = models.BooleanField()
+    is_private = models.BooleanField(default=False)
     price = models.IntegerField(default=0)
 
 

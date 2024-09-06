@@ -1,8 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from .models import Flan, ContactForm, Profile
-from .forms import ContactFormForm, UserForm, ProfileFrom, CustomUserCreationForm
+from .forms import ContactFormForm, UserForm, ProfileFrom, CustomUserCreationForm, AgregarFlan
 from django.contrib.auth import login
 # Create your views here.
 
@@ -28,7 +28,8 @@ def welcome(req):
     """Nos muestra la bienvenida a la tienda"""
     context: dict = {
         'flanes_publicos': Flan.objects.filter(is_private=False),
-        'flanes_privados': Flan.objects.filter(is_private=True)
+        'flanes_privados': Flan.objects.filter(is_private=True),
+        'usuario': req.user.id
     }
     return render(req, 'welcome.html', context)
 
@@ -101,3 +102,19 @@ def register(req):
     else:
         form = CustomUserCreationForm()
     return render(req, 'register.html', {'form': form})
+
+
+@login_required
+def agregar_flan(req):
+    if not req.user.is_superuser:
+        return HttpResponseForbidden("No tienes permisos para acceder a esta pagina")
+
+    if req.method == 'POST':
+        form = AgregarFlan(req.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('welcome')
+    else:
+        form = AgregarFlan()
+
+    return render(req, 'agregar_flan.html', {'form': form})
